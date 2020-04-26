@@ -41,7 +41,7 @@
             <input type="text" name = "sumber_bunyi" id="sumber_bunyi" required value="<?= $alm['sumber_bunyi']?>"><br><br>
         </li>
         <li>
-            <label for="Cara_pakai">CARA PAKAI : </label><br> 
+            <label for="Cara_pakai">CARA PAKAI : </label><br>
             <input type="text" name = "Cara_pakai" id="Cara_pakai" required value="<?= $alm['Cara_pakai']?>"><br><br>
         </li>
         <li>

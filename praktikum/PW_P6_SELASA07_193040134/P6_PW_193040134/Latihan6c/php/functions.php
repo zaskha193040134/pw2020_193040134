@@ -25,7 +25,7 @@ function query($sql){
 function tambah($data) {
     $conn = koneksi();
 
-    $foto           = htmlspecialchars($data['foto alat']);
+    $foto           = htmlspecialchars($data['foto']);
     $nama           = htmlspecialchars($data['nama']);
     $sumber_bunyi   = htmlspecialchars($data['sumber_bunyi']);
     $Cara_pakai     = htmlspecialchars($data['Cara_pakai']);
@@ -47,31 +47,5 @@ function hapus($id){
 
     return mysqli_affected_rows($conn);
 }
-
-//functions untuk menambahkan data didalam database
-function ubah($data) {
-    $conn = koneksi();
-
-    $id             = $data['id'];
-    $foto           = htmlspecialchars($data['foto alat']);
-    $nama           = htmlspecialchars($data['nama']);
-    $sumber_bunyi   = htmlspecialchars($data['sumber_bunyi']);
-    $Cara_pakai     = htmlspecialchars($data['Cara_pakai']);
-    $fungsi         = htmlspecialchars($data['fungsi']);
-
-    $query = "UPDATE alat_musik SET
-            'foto alat' = '$foto',
-            nama = '$nama',
-            sumber_bunyi = '$sumber_bunyi',
-            Cara_pakai = '$Cara_pakai',
-            fungsi = '$fungsi'
-            WHERE id = $id ";
-    
-    mysqli_query($conn , $query);
-
-    return mysqli_affected_rows($conn);
-}
-
-
 
 ?>

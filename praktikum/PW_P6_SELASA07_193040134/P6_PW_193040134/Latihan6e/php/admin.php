@@ -7,7 +7,7 @@ $alat_musik = query ( "SELECT * FROM  alat_musik" );
 if(isset($_GET['cari'])) {
     $keyword = $_GET['keyword'];
     $alat_musik = query("SELECT * FROM alat_musik WHERE
-                'foto alat' LIKE '%$keyword%' OR
+                foto LIKE '%$keyword%' OR
                 nama LIKE '%$keyword%' OR
                 sumber_bunyi LIKE '%$keyword%' OR
                 Cara_pakai LIKE '%$keyword%' OR
@@ -46,7 +46,7 @@ if(isset($_GET['cari'])) {
         <tr>
             <th>#</th>
             <th>opsi</th>
-            <th>foto alat</th>
+            <th>foto</th>
             <th>nama</th>
             <th>Sumber Bunyi</th>
             <th>Cara Pakai</th>
@@ -69,7 +69,7 @@ if(isset($_GET['cari'])) {
                     <a href="ubah.php?id=<?= $alm['id'] ?>"><button>Ubah</button></a>
                     <a href="hapus.php?id=<?= $alm['id']?>" onclick="return confirm('Hapus Data??')"><button>Hapus</button></a>
                 </td>
-                <td><img src="../assets/img/<?= $alm['foto alat']?>" alt=""></td>
+                <td><img src="../assets/img/<?= $alm['foto']?>" alt=""></td>
                 <td><?= $alm['nama']?></td>
                 <td><?= $alm['sumber_bunyi']?></td>
                 <td><?= $alm['Cara_pakai']?></td>
