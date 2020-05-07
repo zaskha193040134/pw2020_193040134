@@ -1,15 +1,17 @@
 <?php
 
 //function untuk melakukan koneksi ke database
-function koneksi() {
-    $conn = mysqli_connect("127.0.0.1" , "root" , "") or die("Koneksi ke DB Gagal");
+function koneksi()
+{
+    $conn = mysqli_connect("127.0.0.1", "root", "") or die("Koneksi ke DB Gagal");
     mysqli_select_db($conn, "pw_193040134") or die("Database is werong!");
-    
+
     return $conn;
 }
 
 //function untuk melakukan query ke database
-function query($sql){
+function query($sql)
+{
     $conn = koneksi();
     $result = mysqli_query($conn, "$sql");
 
@@ -22,7 +24,8 @@ function query($sql){
 }
 
 //functions untuk menambahkan data didalam database
-function tambah($data) {
+function tambah($data)
+{
     $conn = koneksi();
 
     $foto           = htmlspecialchars($data['foto alat']);
@@ -34,14 +37,15 @@ function tambah($data) {
     $query = "INSERT INTO alat_musik
                 VALUES 
                 ('','$foto','$nama','$sumber_bunyi','$Cara_pakai' , '$fungsi')";
-    
-    mysqli_query($conn , $query);
+
+    mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
 }
 
 //functions untuk menghapus data 
-function hapus($id){
+function hapus($id)
+{
     $conn = koneksi();
     mysqli_query($conn, "DELETE FROM alat_m                                                                    usik WHERE id = $id");
 
@@ -49,7 +53,8 @@ function hapus($id){
 }
 
 //functions untuk menambahkan data didalam database
-function ubah($data) {
+function ubah($data)
+{
     $conn = koneksi();
 
     $id             = $data['id'];
@@ -66,8 +71,8 @@ function ubah($data) {
             Cara_pakai = '$Cara_pakai',
             fungsi = '$fungsi'
             WHERE id = $id ";
-    
-    mysqli_query($conn , $query);
+
+    mysqli_query($conn, $query);
 
     return mysqli_affected_rows($conn);
 }
@@ -75,40 +80,40 @@ function ubah($data) {
 
 //login
 
-function login( $data ) {
+function login($data)
+{
     $conn = koneksi();
 
     $username = htmlspecialchars($data['username']);
     $password = htmlspecialchars($data['password']);
 
     //cek username
-if(query($user = "SELECT * FROM user WHERE username ='$username' ")) {
-    //cek password
-    if(password_verify($password, $user['password'])){
-        //set session
-        fetch_array($user);
-        $_SESSION['login'] = true;
+    if (query($user = "SELECT * FROM user WHERE username ='$username' ")) {
+        //cek password
+        if (password_verify($password, $user['password'])) {
+            //set session
+            fetch_array($user);
+            $_SESSION['login'] = true;
 
-        header("Location: index.php");
-        exit;
+            header("Location: index.php");
+            exit;
+        }
     }
-
-}
     return [
         'error' => true,
         'pesan' => 'Username / Password Salah!'
     ];
-
 }
 
-function registrasi($data) {
+function registrasi($data)
+{
     $conn = koneksi();
 
     $username = htmlspecialchars(strtolower($data['username']));
     $password1 = mysqli_real_escape_string($conn, $data['password1']);
     $password2 = mysqli_real_escape_string($conn, $data['password2']);
     //jika username atau password kosong
-    if(empty($username) || empty($password1) || empty($password2)) {
+    if (empty($username) || empty($password1) || empty($password2)) {
         echo "
         <script>
             alert('username/ password tidak boleh kosong');
@@ -116,11 +121,11 @@ function registrasi($data) {
         </script>
         ";
         return false;
-    } 
+    }
 
     //jika username sudah ada
 
-    if(query("SELECT * FROM user WHERE username = '$username'")) {
+    if (query("SELECT * FROM user WHERE username = '$username'")) {
         echo "<script>
             alert('username sudah terdaftar');
             document.location.href = 'registrasi.php'
@@ -129,7 +134,7 @@ function registrasi($data) {
 
 
     //jika konfirmasi password tidak sesuai
-    if($password1 !== $password2) {
+    if ($password1 !== $password2) {
         echo "<script>
             alert('konfirmasi password tidak sesuai');
             document.location.href = 'registrasi.php'
@@ -137,7 +142,7 @@ function registrasi($data) {
     }
 
     // jika password < 5 digit
-    if(strlen($password1) < 5) {
+    if (strlen($password1) < 5) {
         echo "<script>
             alert('password terlalu pendek');
             document.location.href = 'registrasi.php'
@@ -149,9 +154,6 @@ function registrasi($data) {
     $password_baru = password_hash($password1, PASSWORD_DEFAULT);
     // insert ke table user
     $query = "INSERT INTO user VALUES (null, '$username' , '$password_baru')";
-    mysqli_query($conn, $query ) or die(mysqli_error($conn));
+    mysqli_query($conn, $query) or die(mysqli_error($conn));
     return mysqli_affected_rows($conn);
 }
-
-
-?>
