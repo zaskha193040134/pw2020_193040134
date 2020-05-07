@@ -1,70 +1,88 @@
 <?php
-
 session_start();
 
-if(!isset($_SESSION['login'])) {
-    header("Location: login.php");
-    exit;
+if (!isset($_SESSION['login'])) {
+  header("Location: login.php");
 }
-    require 'functions.php';
+require 'functions.php';
 
-    // ambil id dari url admin.php
-    $id = $_GET['id'];
+//jika tidak ada id di url
+if (!isset($_GET['id'])) {
+  header("Location: index.php");
+  exit;
+}
 
-    //query mahasiswa berdasarkan id
-    $alm = query("SELECT * FROM alat_musik WHERE id = $id")[0];
-    // var_dump($alm);
+//ambil id dari url
+$id = $_GET['id'];
 
-    //memastikan kalau tombol ubah sudah ditekan
-    if(isset($_POST['ubah'])) {
-        if(ubah($_POST) > 0) {
-            echo "
-            <script>
-                alert('Data Berhasil diubah!');
-                document.location.href = 'admin.php';
-            </script>
-            ";
-        } else {
-            echo "
-            <script>
-                alert('Data Gagal diubah!');
-                document.location.href = 'admin.php';
-            </script>
-            ";
-        }
-    }
+//query mahasiswa berdasarkan query
+$m = query("SELECT * FROM mahasiswa WHERE id = $id");
+
+// cek apakah tombol tambah sudah ditekan
+if (isset($_POST['ubah'])) {
+  if (ubah($_POST) > 0) {
+    echo "<script>
+            alert('data berhasil diubah');
+            document.location.href = 'index.php';
+          </script>";
+  } else {
+    echo "<script>
+    alert('data gagal diubah');
+    document.location.href = 'index.php';
+  </script>";
+  }
+}
+
 ?>
 
-<h3>Form Ubah Data Alat Musik</h3>
-<form action="" method="post">
-    <input type="hidden" name="id" value="<?= $alm['id']?>">
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ubah Data Mahasiswa</title>
+</head>
+
+<body>
+  <h3>Ubah Data Mahasiswa</h3>
+  <form action="" method="POST">
+    <input type="hidden" name="id" value="<?= $m['id']; ?>">
     <ul>
-        <li>    
-            <label for="nama">NAMA : </label><br>
-            <input type="text" name = "nama" id="nama"  required value="<?= $alm['nama']?>" ><br><br>
-        </li>
-        <li>
-            <label for="sumber_bunyi">SUMBER BUNYI : </label><br>
-            <input type="text" name = "sumber_bunyi" id="sumber_bunyi" required value="<?= $alm['sumber_bunyi']?>"><br><br>
-        </li>
-        <li>
-            <label for="Cara_pakai">CARA PAKAI : </label><br> 
-            <input type="text" name = "Cara_pakai" id="Cara_pakai" required value="<?= $alm['Cara_pakai']?>"><br><br>
-        </li>
-        <li>
-            <label for="fungsi">FUNGSI : </label><br>
-            <input type="text" name = "fungsi" id="fungsi" required value="<?= $alm['fungsi']?>"><br><br>
-        </li>
-        <li>
-            <label for="foto">FOTO : </label><br>
-            <input type="text" name = "foto" id="foto" required value="<?= $alm['foto']?>"><br><br>
-        </li>
-        <li>
-            <br>
-            <button type="submit" name="ubah">Ubah Data</button>
-            <button type="submit">
-                <a href="index.php" style="text-decoration : none; color : black;">Kembali</a>
-            </button>
-        </li>
+      <li>
+        <label>
+          Nama :
+          <input type="text" name="nama" autofocus required value="<?= $m['nama']; ?>">
+          <label>
+      </li>
+      <li>
+        <label>
+          NRP :
+          <input type="text" name="nrp" required value="<?= $m['nrp']; ?>">
+          <label>
+      </li>
+      <li>
+        <label>
+          E-Mail:
+          <input type="text" name="email" required value="<?= $m['email']; ?>">
+          <label>
+      </li>
+      <li>
+        <label>
+          Jurusan :
+          <input type="text" name="jurusan" required value="<?= $m['jurusan']; ?>">
+          <label>
+      </li>
+      <li>
+        <label>
+          Gambar :
+          <input type="text" name="img" required value="<?= $m['img']; ?>">
+          <label>
+      </li>
+      <li>
+        <button type="submit" name="ubah">Ubah Data!</button>
+      </li>
     </ul>
-</form>
+  </form>
+</body>
+
+</html>

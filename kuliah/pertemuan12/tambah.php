@@ -1,60 +1,75 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['login'])) {
-    header("Location: login.php");
-    exit;
+if (!isset($_SESSION['login'])) {
+  header("Location: login.php");
 }
-    require 'functions.php';
+require 'functions.php';
 
-    if(isset($_POST['tambah'])) {
-        if(tambah($_POST) > 0) {
-            echo "
-            <script>
-                alert('Data Berhasil ditambahkan!');
-                document.location.href = 'admin.php';
-            </script>
-            ";
-        } else {
-            echo "
-            <script>
-                alert('Data Gagal ditambahkan!');
-                document.location.href = 'admin.php';
-            </script>
-            ";
-        }
-    }
+// cek apakah tombol tambah sudah ditekan
+if (isset($_POST['tambah'])) {
+  if (tambah($_POST) > 0) {
+    echo "<script>
+            alert('data berhasil ditambahkan');
+            document.location.href = 'index.php';
+          </script>";
+  } else {
+    echo "<script>
+    alert('data gagal ditambahkan');
+    document.location.href = 'index.php';
+  </script>";
+  }
+}
+
 ?>
 
-<h3>Form Tambah Data Alat Musik</h3>
-<form action="" method="post">
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tambah Data Mahasiswa</title>
+</head>
+
+<body>
+  <h3>Tambah Data Mahasiswa</h3>
+  <form action="" method="POST">
     <ul>
-        <li>
-            <label for="nama">NAMA : </label><br>
-            <input type="text" name = "nama" id="nama" required><br><br>
-        </li>
-        <li>
-            <label for="sumber_bunyi">SUMBER BUNYI : </label><br>
-            <input type="text" name = "sumber_bunyi" id="sumber_bunyi" required><br><br>
-        </li>
-        <li>
-            <label for="Cara_pakai">CARA PAKAI : </label><br>
-            <input type="text" name = "Cara_pakai" id="Cara_pakai" required><br><br>
-        </li>
-        <li>
-            <label for="fungsi">FUNGSI : </label><br>
-            <input type="text" name = "fungsi" id="fungsi" required><br><br>
-        </li>
-        <li>
-            <label for="foto">FOTO : </label><br>
-            <input type="text" name = "foto" id="foto" required><br><br>
-        </li>
-        <li>
-            <br>
-            <button type="submit" name="tambah">Tambah Data</button>
-            <button type="submit">
-                <a href="../index.php" style="text-decoration : none; color : black;">Kembali</a>
-            </button>
-        </li>
+      <li>
+        <label>
+          Nama :
+          <input type="text" name="nama" autofocus required>
+          <label>
+      </li>
+      <li>
+        <label>
+          NRP :
+          <input type="text" name="nrp" required>
+          <label>
+      </li>
+      <li>
+        <label>
+          E-Mail:
+          <input type="text" name="email" required>
+          <label>
+      </li>
+      <li>
+        <label>
+          Jurusan :
+          <input type="text" name="jurusan" required>
+          <label>
+      </li>
+      <li>
+        <label>
+          Gambar :
+          <input type="text" name="img" required>
+          <label>
+      </li>
+      <li>
+        <button type="submit" name="tambah">Tambah Data!</button>
+      </li>
     </ul>
-</form>
+  </form>
+</body>
+
+</html>

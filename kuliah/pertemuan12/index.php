@@ -1,41 +1,69 @@
 <?php
-
 session_start();
 
-if(!isset($_SESSION['login'])) {
-    header("Location: login.php");
-    exit;
+if (!isset($_SESSION['login'])) {
+  header("Location: login.php");
 }
 
-    // menghubungkan dengan file php lainya
-    require 'functions.php';
+require 'functions.php';
+$mahasiswa  = query("SELECT * FROM mahasiswa");
 
-    //melakukan query
-    $alat_musik = query("SELECT * FROM alat_musik");
-   
+//ketika tombol cari di klik
+if (isset($_POST['cari'])) {
+  $mahasiswa = cari($_POST['keyword']);
+}
 ?>
+<html lang="en">
 
-<html>
 <head>
-    <title>Tugas</title>
-    <style>
-        img{ width:150px; padding:20px; }
-        td{ text-align : center; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Mahasiswa</title>
 </head>
+
 <body>
+  <a href="logout.php">Logout</a>
+  <h3>Daftar Mahasiswa</h3>
 
+  <a href="tambah.php">Tambah Data Mahasiswa</a>
+  <br><br>
 
-    <div class="container">
-        <?php foreach ($alat_musik as $msk) : ?>
-            <p class="nama">
-                <a href="php/detail.php?id=<?= $msk['id'] ?>">
-                    <?= $msk["nama"] ?>
-                </a>
-            </p>
-        <?php endforeach; ?>
-    </div>
-    <a href="admin.php" style="color:green;">HALAMAN ADMIN</a><br>
-    <a href="logout.php">Logout</a>
+  <form action="" method="POST">
+    <input type="text" name="keyword" size="40" placeholder="Masukan keyword pencarian" autocomplete="off" autofocus>
+    <button type="submit" name="cari">Cari!</button>
+  </form>
+  <br>
+
+  <table border="1" cellpadding="10" cellspacing="0">
+    <tr>
+      <th>#</th>
+      <th>Gambar</th>
+      <th>Nama</th>
+      <th>Aksi</th>
+    </tr>
+
+    <?php if (empty($mahasiswa)) :  ?>
+      <tr>
+        <td colspan="4">
+          <p style="color:red; font-style:italic;">data mahasiswa tidak ditemukan!</p>
+        </td>
+      </tr>
+    <?php endif; ?>
+
+    <?php $i = 1;
+    foreach ($mahasiswa as $m) : ?>
+      <tr>
+        <td><?= $i++; ?></td>
+        <td><img width="75" src="img/<?= $m['img'] ?>"></td>
+        <td><?= $m['nama'] ?> </td>
+        <td>
+          <a href="detail.php?id=<?= $m['id']; ?>">Lihat detail</a>
+        </td>
+      </tr>
+    <?php endforeach; ?>
+
+  </table>
+
 </body>
+
 </html>
