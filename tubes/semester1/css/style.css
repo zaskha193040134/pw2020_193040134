@@ -1,0 +1,83 @@
+h1,h2,h3,h4 {
+    font-family: 'Russo One', sans-serif;
+    margin-top: 80px  ;
+    /* font-size : 50px; */
+    text-align: center;
+    color :rgba(0, 0, 0, .8);
+}
+h5 {
+    font-family: 'Russo One', sans-serif;
+    /* margin-top: 80px  ; */
+    /* font-size : 50px; */
+    /* text-align: center; */
+    color :rgba(0, 0, 0, .8);
+}
+nav {
+    padding-top:18px;
+    height: 100px !important;
+    background: linear-gradient(#01f722, #380add ); /* Standard syntax */
+}
+.row .home{
+    text-align: center;
+}
+p {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    /* text-align: center; */
+    font-size: 28px;
+    color :rgba(0, 0, 0, .8);
+}
+ul {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-family: 'Exo 2', sans-serif;
+}
+p img 
+{
+    margin-top: 20px;
+}
+.border {
+    border-right: 5px solid #4a148c;
+}
+
+.profile p, .profile h4{
+    color : white;
+    text-shadow: 2px 2px 2px black;
+}
+.parallax-container{
+    height: 700px;
+    padding: 80px;
+}
+.parallax-container img {
+    opacity: .8 !important;
+}
+footer{
+    padding: 10px 0;
+}
+footer p {
+    color: white;
+    font-size: 2vw ;
+    text-align: center;
+}
+
+.about {
+    padding: 5px 0 50px;
+}
+.history {
+   padding: 20px 0 20px;
+}
+.contact p {
+    font-size: 23px;
+}
+.btn-floating {
+    width: 65px;
+    height: 65px;
+    padding: 8px;
+}
+.btn-floating p {
+    margin: 0px;
+    font-size: 18px;
+line-height: 50px;
+color: white;
+}
+.garapi {
+    height : 142;
+}

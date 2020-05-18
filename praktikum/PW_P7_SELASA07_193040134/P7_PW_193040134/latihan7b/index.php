@@ -1,36 +1,44 @@
 <?php
 
-    // menghubungkan dengan file php lainya
-    require 'php/functions.php';
+// menghubungkan dengan file php lainya
+require 'php/functions.php';
 
-    //melakukan query
-    $alat_musik = query("SELECT * FROM alat_musik");
+//melakukan query
+$alat_musik = query("SELECT * FROM alat_musik");
 
-    // Tugas no 2
-    if(isset($_GET['cari'])) {
-        $keyword = $_GET['keyword'];
-        $alat_musik = query("SELECT * FROM alat_musik WHERE
+// Tugas no 2
+if (isset($_GET['cari'])) {
+    $keyword = $_GET['keyword'];
+    $alat_musik = query("SELECT * FROM alat_musik WHERE
                     foto LIKE '%$keyword%' OR
                     nama LIKE '%$keyword%' OR
                     sumber_bunyi LIKE '%$keyword%' OR
                     Cara_pakai LIKE '%$keyword%' OR
                     fungsi LIKE '%$keyword%'  ");
-    } else {
-        $alat_musik = query("SELECT * FROM alat_musik");
-    }
+} else {
+    $alat_musik = query("SELECT * FROM alat_musik");
+}
 
 
-   
+
 ?>
 
 <html>
+
 <head>
     <title>Tugas</title>
     <style>
-        img{ width:150px; padding:20px; }
-        td{ text-align : center; }
+        img {
+            width: 150px;
+            padding: 20px;
+        }
+
+        td {
+            text-align: center;
+        }
     </style>
 </head>
+
 <body>
 
 
@@ -44,10 +52,10 @@
 
 
 
-    <?php if(empty($alat_musik)) : ?>
-    <div>
+    <?php if (empty($alat_musik)) : ?>
+        <div>
             <h1>Data Tidak Ditemukan</h1>
-    </div>
+        </div>
     <?php else : ?>
         <div class="container">
             <?php foreach ($alat_musik as $msk) : ?>
@@ -58,11 +66,20 @@
                 </p>
             <?php endforeach; ?>
         </div>
-        <?php endif;?>
+    <?php endif; ?>
 
     <a href="php/login.php">
         <button type="">KE HALAMAN ADMIN</button>
     </a>
 
+    <a href="../../.."><img style="
+            width: 100px;
+            height: 50px;
+            position: fixed;
+            top:20px;
+            right:20px;
+            " src="../../../../tubes/assets/img_stock/back.png" alt=""></a>
+
 </body>
+
 </html>
